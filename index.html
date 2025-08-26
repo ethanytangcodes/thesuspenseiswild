@@ -1,89 +1,72 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Random Quiz</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>just a little quiz</title></title>
+<style>
+  body { font-family: arial, sans-serif; background: #f0f0f0; padding: 20px; }
+  h2 { color: #333; margin-top: 40px; }
+  .question { margin-bottom: 15px; }
+  input[type=text] { width: 80%; padding: 5px; margin-top: 3px; }
+  button { margin-top: 10px; padding: 5px 10px; }
+  .result { margin-top: 20px; font-weight: bold; }
+</style>
 </head>
 <body>
+<h1>quiz</h1>
+
+<div id="quiz-container"></div>
+<button onclick="checkAnswers()">submit answers</button>
+<div class="result" id="result"></div>
+
 <script>
-  // 50 quiz questions
-  const questions = [
-    { q: "What is 5 + 7?", a: "12" },
-    { q: "What is the capital of France?", a: "paris" },
-    { q: "What planet is known as the Red Planet?", a: "mars" },
-    { q: "How many continents are there?", a: "7" },
-    { q: "What is the boiling point of water in Celsius?", a: "100" },
-    { q: "What is the chemical symbol for gold?", a: "au" },
-    { q: "Who painted the Mona Lisa?", a: "leonardo da vinci" },
-    { q: "What is 9 × 9?", a: "81" },
-    { q: "What is the capital of Japan?", a: "tokyo" },
-    { q: "What gas do humans need to breathe?", a: "oxygen" },
-    { q: "What is the largest mammal?", a: "blue whale" },
-    { q: "What is the square root of 64?", a: "8" },
-    { q: "What is the capital of Canada?", a: "ottawa" },
-    { q: "What is the fastest land animal?", a: "cheetah" },
-    { q: "What is H2O more commonly known as?", a: "water" },
-    { q: "What year did World War II end?", a: "1945" },
-    { q: "What is the largest planet in our solar system?", a: "jupiter" },
-    { q: "Who wrote 'Romeo and Juliet'?", a: "william shakespeare" },
-    { q: "What is 11 × 11?", a: "121" },
-    { q: "What is the freezing point of water in Celsius?", a: "0" },
-    { q: "What element do plants need for photosynthesis?", a: "carbon dioxide" },
-    { q: "How many legs does a spider have?", a: "8" },
-    { q: "What is the capital of Australia?", a: "canberra" },
-    { q: "What is the capital of the UK?", a: "london" },
-    { q: "What is the speed of light (approx, km/s)?", a: "300000" },
-    { q: "What is the largest ocean on Earth?", a: "pacific" },
-    { q: "What gas do plants release during photosynthesis?", a: "oxygen" },
-    { q: "Who was the first president of the USA?", a: "george washington" },
-    { q: "What is the capital of Spain?", a: "madrid" },
-    { q: "What is the hardest natural substance?", a: "diamond" },
-    { q: "What is 144 ÷ 12?", a: "12" },
-    { q: "What is the currency of Japan?", a: "yen" },
-    { q: "What is the capital of Mexico?", a: "mexico city" },
-    { q: "What is the tallest mountain in the world?", a: "mount everest" },
-    { q: "What is the capital of Russia?", a: "moscow" },
-    { q: "How many days are in a leap year?", a: "366" },
-    { q: "What is the chemical symbol for silver?", a: "ag" },
-    { q: "What is the capital of Egypt?", a: "cairo" },
-    { q: "How many planets are in the solar system?", a: "8" },
-    { q: "What is the capital of China?", a: "beijing" },
-    { q: "Who invented the light bulb?", a: "thomas edison" },
-    { q: "What is 25 × 4?", a: "100" },
-    { q: "What is 3 cubed (3³)?", a: "27" },
-    { q: "What is the capital of Italy?", a: "rome" },
-    { q: "What is 50 ÷ 5?", a: "10" },
-    { q: "What is the largest desert on Earth?", a: "sahara" },
-    { q: "What is the fastest marine animal?", a: "sailfish" },
-    { q: "Who discovered gravity?", a: "isaac newton" },
-    { q: "What is the smallest prime number?", a: "2" },
-    { q: "What is the chemical symbol for iron?", a: "fe" },
-    { q: "What is 7 × 8?", a: "56" }
-  ];
+const quiz = [
+ {q: "the u.s. census has a diversity index, which is the probability that if two random people meet they will be of different races or ethnicities from each other. what is the most diverse state by this definition?", a: "hawaii"},
+  {q: "in spongebob squarepants, two of the main characters are mollusks. one is gary the snail, who is the other?", a: "squidward"},
+  {q: "based in chicago and known for blues and early rock-n-roll, the real-life company chess records was the basis for the fictional title company in what 2008 movie starring adrian brody, cedric the entertainer, mos def, and beyonce?", a: "cadillac records"},
+  {q: "what field of study is concerned with underwater topography at depth, such as at the bottom of the oceans?", a: "bathymetry"},
+  {q: "back in the 90s and 00s, fred durst was often seen wearing a red hat with what logo on the front, though he was not actually a fan of that team?", a: "new york yankees"},
+  {q: "written by rebecca yarros, the novel onyx storm was released in january and has reportedly sold 2.7 million copies, surpassing every other adult novel in the past 20 years. it's the third installment in what fantasy romance series?", a: "empyrean"},
+  {q: "what surname belongs to the 19th-century european musical couple, the husband a renowned romantic composer known for works like 'carnaval' and 'kinderszenen,' and the wife an acclaimed pianist with a six-decade performing career?", a: "schumann"},
+  {q: "what is the smallest bone in the human body?", a: ["stapes", "stirrup"]},
+  {q: "aside from jose cuervo, probably the most famous of the founding mexican tequila producers, a guy named don cenobio became the first importer of tequila to the u.s. in 1873. what was his surname, which is used on the still-popular brand he founded?", a: "sauza"},
+  {q: "often used in urban environments to prevent excessive growth, what's the process of completely pruning the small branches off of trees, leaving them with a bunch of large branches that are basically stubs? this process shares its name with the current starting running back for the tennessee titans.", a: "pollarding"},
+  {q: "what band founded in the 70s has the most grammys of any group, with 22?", a: "u2"},
+  {q: "what song by tommy richman that spent 33 weeks on the billboard hot 100 shares its name with the film that won best picture at the 2005 oscars, and was the most used audio clip on tiktok in 2024?", a: "million dollar baby"},
+  {q: "a popular family car in the 60s and 70s, what model of full-size chevrolet sedan is used more frequently for taxis and police vehicles today, and has a name that means an impulsive action or change of mind?", a: "caprice"},
+  {q: "tim lincecum played for the giants his entire career, except his final season in 2016, which was with what american league team?", a: "los angeles angels"},
+  {q: "besides golf, what is the only other sport that has been played on the moon? (hint: it's in the olympics)", a: "javelin"},
+  {q: "in animal house the characters take a road trip from faber college, a stand-in for dartmouth, to the fictional emily dickinson college, a stand-in for what real-life women's college in south hadley, ma that the poet briefly attended, and which is the oldest of the seven sisters?", a: "mount holyoke"}
+];
 
-  let disqualified = false;
+const container = document.getElementById('quiz-container');
+quiz.forEach((item, i) => {
+  const div = document.createElement('div');
+  div.className = 'question';
+  div.innerHTML = `<b>q${i+1}:</b> ${item.q}<br><input type="text" id="q${i}">`;
+  container.appendChild(div);
+});
 
-  // Detect leaving tab/window
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) disqualified = true;
-  });
-  window.addEventListener("blur", () => {
-    disqualified = true;
-  });
+function checkAnswers() {
+  let correct = 0;
 
-  // Pick a random question
-  const q = questions[Math.floor(Math.random() * questions.length)];
+  for (let i = 0; i < quiz.length; i++) {
+    const user = document.getElementById(`q${i}`).value.trim().toLowerCase();
+    const answers = quiz[i].a.map(a => a.toLowerCase()); // make all acceptable answers lowercase
 
-  // Prompt user, tell them to use lowercase
-  const response = prompt("QUIZ TIME ⚡\nAnswer in lowercase or numbers only!\n\n" + q.q);
-
-  // If they leave the tab or answer wrong → redirect to Rickroll
-  if (disqualified || !response || response.trim().toLowerCase() !== q.a) {
-    alert("❌ Wrong or left the quiz! Redirecting…");
-    window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-  } else {
-    alert("✅ Correct! You survived the quiz.");
+    if (answers.includes(user)) {
+      correct++;
+    } else {
+      // fail rickroll
+      window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+      return;
+    }
   }
+
+  document.getElementById('result').textContent = `congrats! you got ${correct}/${quiz.length} correct!`;
+}
+
 </script>
 </body>
 </html>
